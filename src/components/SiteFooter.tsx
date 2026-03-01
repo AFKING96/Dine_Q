@@ -63,7 +63,7 @@ export function SiteFooter() {
                             </span>
                         </Link>
                         <p className="text-xl text-foreground/40 font-bold leading-relaxed max-w-md italic">
-                            "{t('footer_description')}"
+                            &quot;{t('footer_description')}&quot;
                         </p>
                     </div>
 

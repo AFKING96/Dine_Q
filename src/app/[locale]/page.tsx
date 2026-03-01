@@ -1,26 +1,17 @@
 import { Hero } from '@/components/Hero';
-import { HowItWorks } from '@/components/HowItWorks';
 import { FeaturesSection } from '@/components/FeaturesSection';
-import { TrustSection } from '@/components/TrustSection';
-import { ProductShowcase } from '@/components/ProductShowcase';
-import { Reveal } from '@/components/motion/Reveal';
+import { PricingSection } from '@/components/sections/pricing-section';
+import { LogoCloud3 } from '@/components/logo-cloud-3';
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col relative w-full overflow-hidden min-h-screen pt-28">
       <Hero />
-      <Reveal width="100%">
-        <HowItWorks />
-      </Reveal>
-      <Reveal width="100%">
+      <div className="relative z-10 w-full overflow-hidden bg-background">
+        <LogoCloud3 />
         <FeaturesSection />
-      </Reveal>
-      <Reveal width="100%">
-        <ProductShowcase />
-      </Reveal>
-      <Reveal width="100%">
-        <TrustSection />
-      </Reveal>
+        <PricingSection />
+      </div>
     </div>
   );
 }

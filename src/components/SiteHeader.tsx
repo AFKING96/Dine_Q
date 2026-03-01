@@ -1,16 +1,19 @@
 "use client";
 
-import { Link, usePathname } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
+import { usePathname } from 'next/navigation';
+import { useTranslations, useLocale } from 'next-intl';
 import { LanguageToggle } from './LanguageToggle';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Home, Briefcase, CreditCard, Users } from 'lucide-react';
+import { AnimeNavBar } from '@/components/ui/anime-navbar';
 
 export function SiteHeader() {
     const t = useTranslations('Navigation');
     const pathname = usePathname();
+    const locale = useLocale();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -23,43 +26,41 @@ export function SiteHeader() {
     }, []);
 
     const navLinks = [
-        { href: '/pricing', label: t('pricing') },
-        { href: '/business', label: t('business') },
-        { href: '/partners', label: t('partners') },
+        { href: '/', matchPath: `/${locale}` },
+        { href: '/pricing', matchPath: `/${locale}/pricing` },
+        { href: '/business', matchPath: `/${locale}/business` },
+        { href: '/partners', matchPath: `/${locale}/partners` },
     ];
+
+    // Helper mapping for translation keys
+    const labels: Record<string, string> = {
+        '/': t('home'),
+        '/pricing': t('pricing'),
+        '/business': t('business'),
+        '/partners': t('partners')
+    };
 
     return (
         <header
-            className={`sticky top-0 z-50 w-full transition-all duration-300 border-b ${isScrolled
-                ? 'border-white/10 bg-background/80 backdrop-blur-xl py-3'
-                : 'border-transparent bg-transparent py-5'
+            className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled
+                ? 'border-b border-white/10 bg-background/80 backdrop-blur-xl py-3'
+                : 'border-b border-transparent bg-transparent py-5'
                 }`}
         >
             <div className="flex items-center justify-between mx-auto px-6 max-w-7xl">
                 <Link href="/" className="flex items-center space-x-2 group">
                     <span className="font-bold text-2xl tracking-tighter text-glow-purple group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)] transition-all">DineQ</span>
                 </Link>
-                <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-                    {navLinks.map((link) => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            className={`transition-all duration-300 relative py-2 px-4 rounded-xl group/nav ${pathname === link.href
-                                ? 'text-white bg-white/5'
-                                : 'text-foreground/60 hover:text-white hover:bg-white/[0.02]'
-                                }`}
-                        >
-                            <span className="relative z-10 font-bold tracking-tight">{link.label}</span>
-                            {pathname === link.href && (
-                                <motion.div
-                                    layoutId="navTab"
-                                    className="absolute inset-0 bg-white/5 rounded-xl border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
-                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                                />
-                            )}
-                            <div className="absolute bottom-1 left-4 right-4 h-px bg-glow-purple opacity-0 group-hover/nav:opacity-50 blur-[2px] transition-opacity" />
-                        </Link>
-                    ))}
+                <nav className="hidden md:block relative z-10">
+                    <AnimeNavBar
+                        items={[
+                            { name: labels['/'], url: '/', icon: Home },
+                            { name: labels['/pricing'], url: '/pricing', icon: CreditCard },
+                            { name: labels['/business'], url: '/business', icon: Briefcase },
+                            { name: labels['/partners'], url: '/partners', icon: Users },
+                        ]}
+                        defaultActive={labels['/']}
+                    />
                 </nav>
                 <div className="flex items-center gap-6">
                     <div className="hidden md:flex items-center gap-6">
@@ -90,17 +91,20 @@ export function SiteHeader() {
                         className="md:hidden border-t border-white/10 bg-background/95 backdrop-blur-xl overflow-hidden"
                     >
                         <div className="flex flex-col p-6 gap-6">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    onClick={() => setIsOpen(false)}
-                                    className={`text-lg font-medium transition-colors ${pathname === link.href ? 'text-glow-purple' : 'text-foreground/60'
-                                        }`}
-                                >
-                                    {link.label}
-                                </Link>
-                            ))}
+                            {navLinks.map((link) => {
+                                const isActive = pathname === link.matchPath || pathname === link.matchPath + '/';
+                                return (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href as never}
+                                        onClick={() => setIsOpen(false)}
+                                        className={`text-lg font-medium transition-colors ${isActive ? 'text-primary' : 'text-foreground/60'
+                                            }`}
+                                    >
+                                        {labels[link.href]}
+                                    </Link>
+                                );
+                            })}
                             <div className="h-px bg-white/5 w-full my-2" />
                             <div className="flex items-center justify-between">
                                 <span className="text-sm text-foreground/40">{t('language')}</span>

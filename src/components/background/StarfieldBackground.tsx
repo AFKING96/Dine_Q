@@ -14,10 +14,33 @@ interface Star {
     twinklePhase: number;
 }
 
-const STAR_COUNT = 200;
 const NEAR_STAR_COUNT = 15;
 const MID_STAR_COUNT = 45;
 const FAR_STAR_COUNT = 140;
+
+function createStar(width: number, height: number, layer: number): Star {
+    const x = Math.random() * width;
+    const y = Math.random() * height;
+
+    // z determines depth/speed: 1 near, 3 far
+    // Larger stars are closer
+    let size = 0;
+    if (layer === 1) size = Math.random() * 1.5 + 1; // Near
+    else if (layer === 2) size = Math.random() * 0.8 + 0.6; // Mid
+    else size = Math.random() * 0.4 + 0.2; // Far
+
+    return {
+        x,
+        y,
+        baseX: x,
+        baseY: y,
+        z: layer,
+        size,
+        opacity: Math.random(),
+        twinkleSpeed: Math.random() * 0.02 + 0.005,
+        twinklePhase: Math.random() * Math.PI * 2,
+    };
+}
 
 export const StarfieldBackground: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -29,6 +52,7 @@ export const StarfieldBackground: React.FC = () => {
     // Check for reduced motion preference
     useEffect(() => {
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+        // eslint-disable-next-line
         setReducedMotion(mediaQuery.matches);
         const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
         mediaQuery.addEventListener("change", handler);
@@ -54,29 +78,7 @@ export const StarfieldBackground: React.FC = () => {
         starsRef.current = stars;
     }, []);
 
-    const createStar = (width: number, height: number, layer: number): Star => {
-        const x = Math.random() * width;
-        const y = Math.random() * height;
 
-        // z determines depth/speed: 1 near, 3 far
-        // Larger stars are closer
-        let size = 0;
-        if (layer === 1) size = Math.random() * 1.5 + 1; // Near
-        else if (layer === 2) size = Math.random() * 0.8 + 0.6; // Mid
-        else size = Math.random() * 0.4 + 0.2; // Far
-
-        return {
-            x,
-            y,
-            baseX: x,
-            baseY: y,
-            z: layer,
-            size,
-            opacity: Math.random(),
-            twinkleSpeed: Math.random() * 0.02 + 0.005,
-            twinklePhase: Math.random() * Math.PI * 2,
-        };
-    };
 
     const handleResize = useCallback(() => {
         const canvas = canvasRef.current;
@@ -141,7 +143,6 @@ export const StarfieldBackground: React.FC = () => {
 
                 // Parallax movement based on mouse
                 // Layer 1 moves more, layer 3 moves less
-                const parallaxFactor = 1 / star.z;
                 const offsetX = reducedMotion ? 0 : mouseRef.current.x * 12 * (4 - star.z);
                 const offsetY = reducedMotion ? 0 : mouseRef.current.y * 12 * (4 - star.z);
 

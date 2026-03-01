@@ -1,0 +1,76 @@
+
+> dineq-app@0.1.0 lint
+> eslint
+
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\app\[locale]\business\page.tsx
+  70:39  warning  'i' is defined but never used                                    @typescript-eslint/no-unused-vars
+  82:37  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  82:54  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\app\[locale]\demo\page.tsx
+  12:5  warning  'Send' is defined but never used      @typescript-eslint/no-unused-vars
+  13:5  warning  'Calendar' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\app\[locale]\layout.tsx
+  32:43  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\app\[locale]\page.tsx
+  5:10  warning  'Reveal' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\components\FeaturesSection.tsx
+  3:10  warning  'motion' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\components\SiteFooter.tsx
+  66:29  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  66:55  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\components\SiteHeader.tsx
+   59:52  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  104:60  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\components\background\StarfieldBackground.tsx
+   17:7   warning  'STAR_COUNT' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   43:24  error    Error: Cannot access variable before it is declared
+
+`createStar` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\components\background\StarfieldBackground.tsx:43:24
+  41 |         // Near stars (layer 0)
+  42 |         for (let i = 0; i < NEAR_STAR_COUNT; i++) {
+> 43 |             stars.push(createStar(width, height, 1));
+     |                        ^^^^^^^^^^ `createStar` accessed before it is declared
+  44 |         }
+  45 |         // Mid stars (layer 1)
+  46 |         for (let i = 0; i < MID_STAR_COUNT; i++) {
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\components\background\StarfieldBackground.tsx:57:5
+  55 |     }, []);
+  56 |
+> 57 |     const createStar = (width: number, height: number, layer: number): Star => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 58 |         const x = Math.random() * width;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 59 |         const y = Math.random() * height;
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 78 |         };
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 79 |     };
+     | ^^^^^^^ `createStar` is declared here
+  80 |
+  81 |     const handleResize = useCallback(() => {
+  82 |         const canvas = canvasRef.current;  react-hooks/immutability
+  144:23  warning  'parallaxFactor' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\components\motion\Reveal.tsx
+  4:43  warning  'Variant' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\components\sections\partners-section.tsx
+  4:41  warning  'ArrowRight' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\farid\OneDrive - Egyptian E-Learning University\Desktop\DineQ\DineQ\src\i18n\request.ts
+  9:56  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 18 problems (9 errors, 9 warnings)
+

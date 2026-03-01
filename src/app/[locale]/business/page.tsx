@@ -54,54 +54,78 @@ export default function BusinessPage() {
     ];
 
     return (
-        <div className="flex flex-col min-h-screen py-24 px-6 max-w-7xl mx-auto w-full">
+        <div className="flex flex-col min-h-screen py-24 px-6 max-w-6xl mx-auto w-full">
             <Reveal width="100%">
                 <div className="mb-20 text-center">
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-br from-white to-white/40 bg-clip-text text-transparent">
-                        {t('business_title')}
-                    </h1>
-                    <p className="text-foreground/60 max-w-2xl mx-auto text-lg leading-relaxed">
-                        {t('business_subtitle')}
+                    <h2 className="text-3xl md:text-4xl font-bold text-center">
+                        Built to Scale Real Restaurant Operations.
+                    </h2>
+                    <p className="text-white/60 text-center mt-4 max-w-2xl mx-auto">
+                        Whether you manage a single location or a growing brand,
+                        DineQ gives you centralized control across every branch.
                     </p>
                 </div>
             </Reveal>
 
-            <div className="space-y-12">
-                {sectors.map((sector, i) => (
+            <div className="space-y-10 mt-16 max-w-4xl mx-auto w-full">
+                {sectors.map((sector) => (
                     <Reveal key={sector.title} width="100%">
-                        <motion.div
-                            whileHover={{ scale: 1.01 }}
-                            className={`p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-gradient-to-br ${sector.color} flex flex-col md:flex-row gap-12 items-center transition-all duration-500 hover:border-white/20 hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)]`}
+                        <div
+                            className="
+                                relative
+                                w-full
+                                rounded-2xl
+                                border border-white/10
+                                bg-[#0f111a]
+                                p-10
+                                transition-all duration-300
+                                hover:border-violet-500/40
+                            "
                         >
-                            <div className="flex-1">
-                                <div className={`w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 ${sector.iconColor} shadow-[0_0_20px_rgba(0,0,0,0.1)]`}>
-                                    <sector.icon className="w-8 h-8" />
+                            <div className="space-y-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-lg bg-violet-600/15 flex items-center justify-center text-violet-400">
+                                        <sector.icon size={18} />
+                                    </div>
+                                    <h3 className="text-xl font-semibold text-white">
+                                        {sector.title}
+                                    </h3>
                                 </div>
-                                <h2 className="text-3xl font-bold mb-4">{sector.title}</h2>
-                                <p className="text-lg text-foreground/80 mb-8 max-w-xl italic leading-relaxed">
-                                    "{sector.problem}"
+
+                                <p className="text-white/60 text-sm max-w-xl leading-relaxed">
+                                    {sector.problem}
                                 </p>
-                                <div className="space-y-4 mb-8">
+
+                                <ul className="space-y-3 pt-2">
                                     {sector.bullets.map(bullet => (
-                                        <div key={bullet} className="flex items-start gap-3">
-                                            <CheckCircle2 className={`w-5 h-5 shrink-0 mt-0.5 ${sector.iconColor}`} />
-                                            <span className="text-foreground/70 font-medium">{bullet}</span>
-                                        </div>
+                                        <li key={bullet} className="flex items-center gap-2 text-sm text-white/70">
+                                            <span className="w-1.5 h-1.5 bg-violet-400 rounded-full" />
+                                            {bullet}
+                                        </li>
                                     ))}
-                                </div>
-                                <Button asChild className="bg-white text-black hover:bg-white/90 font-bold px-10 h-12 rounded-xl transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+                                </ul>
+
+                                <button className="
+                                    mt-6
+                                    inline-flex
+                                    items-center
+                                    justify-center
+                                    rounded-lg
+                                    px-5
+                                    py-2.5
+                                    text-sm
+                                    font-medium
+                                    bg-white
+                                    text-black
+                                    hover:bg-white/90
+                                    transition
+                                ">
                                     <Link href="/demo">
-                                        {t('business_cta')} <ArrowRight className="ml-2 h-4 w-4 rtl:rotate-180" />
+                                        Request Demo
                                     </Link>
-                                </Button>
+                                </button>
                             </div>
-                            <div className="hidden md:flex flex-1 justify-center">
-                                <div className="w-full max-w-sm aspect-square rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center relative overflow-hidden group shadow-inner">
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${sector.color} opacity-20 group-hover:opacity-30 transition-opacity duration-500`}></div>
-                                    <sector.icon className={`w-32 h-32 opacity-20 ${sector.iconColor} group-hover:scale-110 group-hover:opacity-40 transition-all duration-700 ease-out`} />
-                                </div>
-                            </div>
-                        </motion.div>
+                        </div>
                     </Reveal>
                 ))}
             </div>
