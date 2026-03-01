@@ -59,7 +59,6 @@ export function SiteHeader() {
                             { name: labels['/business'], url: '/business', icon: Briefcase },
                             { name: labels['/partners'], url: '/partners', icon: Users },
                         ]}
-                        defaultActive={labels['/']}
                     />
                 </nav>
                 <div className="flex items-center gap-6">
